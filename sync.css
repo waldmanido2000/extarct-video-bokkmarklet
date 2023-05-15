@@ -1,0 +1,54 @@
+/* sync.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  p {
+    color: #666;
+  }
+  
+  #file-input {
+    margin-bottom: 10px;
+  }
+  
+  #analog-bar {
+    position: relative;
+    width: 300px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+  }
+  
+  #analog-knob {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 10px;
+    height: 30px;
+    background-color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #666;
+  }
+  

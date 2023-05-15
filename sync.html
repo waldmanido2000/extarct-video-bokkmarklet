@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Subtitle Sync</title>
+  <script>
+    function delaySubtitles() {
+      var delay = prompt('Enter the number of milliseconds to delay the subtitles:');
+      if (delay !== null) {
+        var subtitles = document.getElementById('subtitles').value;
+        var syncedSubtitles = applyDelay(subtitles, delay);
+        downloadFile(syncedSubtitles, 'synced.srt');
+      }
+    }
+
+    function applyDelay(subtitles, delay) {
+      var lines = subtitles.split('\n');
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (line.includes('-->')) {
+          var parts = line.split(' --> ');
+          var startTime = parseTime(parts[0]);
+          var endTime = parseTime(parts[1]);
+          startTime += parseInt(delay);
+          endTime += parseInt(delay);
+          lines[i] = formatTime(startTime) + ' --> ' + formatTime(endTime);
+        }
+      }
+      return lines.join('\n');
+    }
+
+    function parseTime(time) {
+      var parts = time.split(':');
+      var seconds = parseFloat(parts[2].replace(',', '.'));
+      return (parseInt(parts[0]) * 3600000) + (parseInt(parts[1]) * 60000) + (seconds * 1000);
+    }
+
+    function formatTime(time) {
+      var milliseconds = time % 1000;
+      time = Math.floor(time / 1000);
+      var seconds = time % 60;
+      time = Math.floor(time / 60);
+      var minutes = time % 60;
+      time = Math.floor(time / 60);
+      var hours = time;
+      return (
+        hours.toString().padStart(2, '0') + ':' +
+        minutes.toString().padStart(2, '0') + ':' +
+        seconds.toString().padStart(2, '0') + ',' +
+        milliseconds.toString().padStart(3, '0')
+      );
+    }
+
+    function downloadFile(content, filename) {
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+  </script>
+</head>
+<body>
+  <h1>Subtitle Sync</h1>
+  <p>Open the SRT file and click the button to delay the subtitles:</p>
+  <input type="file" accept=".srt" id="file-input" />
+  <button onclick="delaySubtitles()">Delay Subtitles</button>
+  <script>
+    document.getElementById('file-input').addEventListener('change', function(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('subtitles').value = e.target.result;
+      };
+      reader.readAsText(file);
+    });
+  </script>
+   <textarea id="subtitles" style="display: none;"></textarea>
+   <script>
+     function delaySubtitles() {
+       var delay = prompt('Enter the number of milliseconds to delay the subtitles:');
+       if (delay !== null) {
+         var subtitles = document.getElementById('subtitles').value;
+         var syncedSubtitles = applyDelay(subtitles, delay);
+         downloadFile(syncedSubtitles, 'synced.srt');
+       }
+     }
+ 
+     function applyDelay(subtitles, delay) {
+       var lines = subtitles.split('\n');
+       for (var i = 0; i < lines.length; i++) {
+         var line = lines[i];
+         if (line.includes('-->')) {
+           var parts = line.split(' --> ');
+           var startTime = parseTime(parts[0]);
+           var endTime = parseTime(parts[1]);
+           startTime += parseInt(delay);
+           endTime += parseInt(delay);
+           lines[i] = formatTime(startTime) + ' --> ' + formatTime(endTime);
+         }
+       }
+       return lines.join('\n');
+     }
+ 
+     function parseTime(time) {
+       var parts = time.split(':');
+       var seconds = parseFloat(parts[2].replace(',', '.'));
+       return (parseInt(parts[0]) * 3600000) + (parseInt(parts[1]) * 60000) + (seconds * 1000);
+     }
+ 
+     function formatTime(time) {
+       var milliseconds = time % 1000;
+       time = Math.floor(time / 1000);
+       var seconds = time % 60;
+       time = Math.floor(time / 60);
+       var minutes = time % 60;
+       time = Math.floor(time / 60);
+       var hours = time;
+       return (
+         hours.toString().padStart(2, '0') + ':' +
+         minutes.toString().padStart(2, '0') + ':' +
+         seconds.toString().padStart(2, '0') + ',' +
+         milliseconds.toString().padStart(3, '0')
+       );
+     }
+ 
+     function downloadFile(content, filename) {
+       var element = document.createElement('a');
+       element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+       element.setAttribute('download', filename);
+       element.style.display = 'none';
+       document.body.appendChild(element);
+       element.click();
+       document.body.removeChild(element);
+     }
+   </script>
+ </body>
+ </html>
+ 

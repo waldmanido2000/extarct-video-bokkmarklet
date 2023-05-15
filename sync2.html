@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Subtitle Sync</title>
+  <link rel="stylesheet" href="sync.css">
+</head>
+<body>
+  <h1>Subtitle Sync</h1>
+  <p>Open the SRT file and adjust the timing using the analog bar:</p>
+  <input type="file" accept=".srt" id="file-input">
+  <div id="analog-bar">
+    <div id="analog-knob"></div>
+  </div>
+  <div id="delay-label">Delay: 0 ms</div>
+  <div>
+    <input type="radio" id="delay-radio" name="timing" value="delay" checked>
+    <label for="delay-radio">Delay</label>
+    <input type="radio" id="hasten-radio" name="timing" value="hasten">
+    <label for="hasten-radio">Hasten</label>
+  </div>
+  <button onclick="applyTiming()">Apply Timing</button>
+
+  <script src="sync.js"></script>
+</body>
+</html>
